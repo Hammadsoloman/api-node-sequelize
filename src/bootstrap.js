@@ -13,5 +13,7 @@ module.exports = async () =>{
     const user = await User.create({username:"Hammad",passwd:'0000'}).catch(errHandler);
     const tweet = await Tweet.create({content:'This is actually the tweet content',userId:user.id}).catch(errHandler);
 
-    User.findAll({where:{username:'Hammad'},include:[]})
+   const users = await User.findAll({where:{username:'Hammad'},include:[{model:Tweet, as:"Tweets"}]}).catch(errHandler);
+
+   console.log("Hammad Tweets: ",users);
 }
